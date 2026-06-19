@@ -1,26 +1,51 @@
 use clap::{Parser, Subcommand};
 
-/// RCL - The Rust Command Line
+mod ls;
+mod cat;
+
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
+#[command(propagate_version = true)]
 struct Cli {
-    /// Name of the person to greet
-    #[arg(short, long)]
-    name: String,
+    #[command(subcommand)]
+    command: Commands,
+}
 
-    /// Number of times to greet
-    #[arg(short, long, default_value_t = 1)]
-    count: u8,
+#[derive(Subcommand, Debug)]
+enum Commands {
+    /// List files and/or directories
+    Ls {
+        /// Long listing
+        #[arg(short = 'l')]
+        long_output: bool,
+    },
+    /// Display the current directory
+    Pwd,
+    /// Output a file to stdout
+    Cat,
+}
+
+#[derive(Subcommand, Debug)]
+enum AddCommands {
+
 }
 
 fn main() {
+    let cli = Cli::parse();
 
-    //let cli_args = std::env::args();
+    println!("{:?}", cli);
 
-    let args = Cli::parse();
-    println!("Parsed args: {args:?}");
+    let _x = 5;
 
-    for _ in 0..args.count {
-        println!("Hello {}!", args.name);
+    match &cli.command {
+        Commands::Cat => {
+            cat::process();
+        },
+        Commands::Ls { long_output } => {
+            ls::process(long_output);
+        },
+        Commands::Pwd => {
+            println!("PWD!");
+        }
     }
 }
