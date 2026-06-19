@@ -1,4 +1,4 @@
 pub fn process() 
 {
-    println!("CAT!");
+    println!("cat");
 }

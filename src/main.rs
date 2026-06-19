@@ -1,7 +1,8 @@
 use clap::{Parser, Subcommand};
 
-mod ls;
 mod cat;
+mod ls;
+mod pwd;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -13,6 +14,8 @@ struct Cli {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
+    /// Output a file to stdout
+    Cat,
     /// List files and/or directories
     Ls {
         /// Long listing
@@ -21,8 +24,6 @@ enum Commands {
     },
     /// Display the current directory
     Pwd,
-    /// Output a file to stdout
-    Cat,
 }
 
 #[derive(Subcommand, Debug)]
@@ -33,9 +34,7 @@ enum AddCommands {
 fn main() {
     let cli = Cli::parse();
 
-    println!("{:?}", cli);
-
-    let _x = 5;
+    //println!("{:?}", cli);
 
     match &cli.command {
         Commands::Cat => {
@@ -45,7 +44,7 @@ fn main() {
             ls::process(long_output);
         },
         Commands::Pwd => {
-            println!("PWD!");
+            pwd::process();
         }
     }
 }
