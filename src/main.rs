@@ -26,11 +26,6 @@ enum Commands {
     Pwd,
 }
 
-#[derive(Subcommand, Debug)]
-enum AddCommands {
-
-}
-
 fn main() {
     let cli = Cli::parse();
 
