@@ -36,10 +36,16 @@ fn main() {
             cat::process();
         },
         Commands::Ls { long_output } => {
-            ls::process(long_output);
+            let cmd = ls::Ls {
+                long_output: *long_output,
+            };
+
+            cmd.process();
         },
         Commands::Pwd => {
-            pwd::process();
+            let cmd = pwd::Pwd {};
+
+            cmd.process();
         }
     }
 }

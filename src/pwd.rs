@@ -1,5 +1,13 @@
-pub fn process() {
-    let curr_path = std::env::current_dir().unwrap();
+pub struct Pwd {
 
-    println!("{:?}", curr_path);
+}
+
+impl Pwd {
+    pub fn process(&self) -> i32 {
+        let curr_path = std::env::current_dir().unwrap();
+
+        println!("{:?}", curr_path);
+
+        0
+    }
 }

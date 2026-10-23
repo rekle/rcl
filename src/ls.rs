@@ -2,12 +2,34 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-/*
-struct Ls
+
+pub struct Ls
 {
-    long_output: bool,
+    pub long_output: bool,
 }
-*/
+
+impl Ls {
+    pub fn process(&self) -> i32 {
+        let paths = list_paths(".", false).unwrap();
+
+        if self.long_output {
+            for path in paths {
+                let metadata = path.metadata().unwrap();
+                print_file_type(&metadata);
+                print!(" {}", metadata.len());
+                println!(" {}", path.file_name().unwrap_or_default().to_string_lossy());
+            }
+        }
+        else {
+            for path in paths {
+                println!(" {}", path.file_name().unwrap_or_default().to_string_lossy());
+            }
+        }
+
+        0
+    }
+}
+
 
 pub fn list_paths<P: AsRef<Path>>(path: P, recursive: bool) -> io::Result<Vec<PathBuf>> {
     let mut paths = Vec::new();
@@ -40,25 +62,6 @@ fn print_file_type(metadata: &fs::Metadata) {
         print!("s");
     } else {
         print!("?");
-    }
-}
-
-
-pub fn process(long_output: &bool) {
-    let paths = list_paths(".", false).unwrap();
-
-    if *long_output {
-        for path in paths {
-            let metadata = path.metadata().unwrap();
-            print_file_type(&metadata);
-            print!(" {}", metadata.len());
-            println!(" {}", path.file_name().unwrap_or_default().to_string_lossy());
-        }
-    }
-    else {
-        for path in paths {
-            println!(" {}", path.file_name().unwrap_or_default().to_string_lossy());
-        }
     }
 }
 
