@@ -21,7 +21,7 @@
                     "--bin=rcl"
                 ]
             },
-            "args": []
+            "args": ["ls"]
         },
         {
             "name": "Debug unit tests in executable 'rcl'",

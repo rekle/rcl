@@ -6,12 +6,18 @@ use std::path::{Path, PathBuf};
 pub struct Ls
 {
     pub long_output: bool,
+    pub args: Vec<String>
 }
 
 impl Ls {
     pub fn process(&self) -> i32 {
-        let path: &str = ".";
-        
+        let mut path: &str = ".";
+        if self.args.len() > 0 {
+            path = &self.args[0];
+        }
+
+        println!("Listing directory: {:?}", path);
+
         let paths = Ls::list_paths(path, false).unwrap();
 
         if self.long_output {

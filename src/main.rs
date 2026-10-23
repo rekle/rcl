@@ -21,6 +21,10 @@ enum Commands {
         /// Long listing
         #[arg(short = 'l')]
         long_output: bool,
+
+        /// Capture all remaining arguments
+        #[arg(last = true)]
+        args: Vec<String>,
     },
     /// Display the current directory
     Pwd,
@@ -35,9 +39,10 @@ fn main() {
 
             cmd.process();
         },
-        Commands::Ls { long_output } => {
+        Commands::Ls { long_output, args} => {
             let cmd = ls::Ls {
                 long_output: *long_output,
+                args: args.clone(),
             };
 
             cmd.process();
