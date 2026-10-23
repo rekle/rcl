@@ -10,7 +10,9 @@ pub struct Ls
 
 impl Ls {
     pub fn process(&self) -> i32 {
-        let paths = Ls::list_paths(".", false).unwrap();
+        let path: &str = ".";
+        
+        let paths = Ls::list_paths(path, false).unwrap();
 
         if self.long_output {
             for path in paths {

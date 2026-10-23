@@ -1,4 +1,14 @@
-pub fn process() 
+pub struct Cat 
 {
-    println!("cat");
+
+}
+
+impl Cat
+{
+    pub fn process(&self) -> i32 
+    {
+        println!("cat");
+
+        0
+    }
 }

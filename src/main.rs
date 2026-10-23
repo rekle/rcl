@@ -29,11 +29,11 @@ enum Commands {
 fn main() {
     let cli = Cli::parse();
 
-    //println!("{:?}", cli);
-
     match &cli.command {
         Commands::Cat => {
-            cat::process();
+            let cmd = cat::Cat {};
+
+            cmd.process();
         },
         Commands::Ls { long_output } => {
             let cmd = ls::Ls {
