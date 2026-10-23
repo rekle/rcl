@@ -2,10 +2,12 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+/*
 struct Ls
 {
     long_output: bool,
 }
+*/
 
 pub fn list_paths<P: AsRef<Path>>(path: P, recursive: bool) -> io::Result<Vec<PathBuf>> {
     let mut paths = Vec::new();
